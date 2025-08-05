@@ -35,3 +35,40 @@ pagamento_dropdown.pack(pady=5)
 
 valor_pago_entry = ctk.CTkEntry(app, placeholder_text="Valor pago(se for dinheiro)")
 valor_pago_entry.pack(pady=10)
+
+resultado_label = ctk.CTkLabel(app, text="")
+resultado_label.pack(pady=10)
+
+def calcular():
+    try:
+        alimento = alimento_dropdown.get()
+        bebida = bebida_dropdown.get()
+        forma_pagamento = pagamento_dropdown.get()
+
+        qtd_alimento = int(quantidade_alimento_entry.get())
+        qtd_bebida = int(quantidade_bebida_entry.get())
+
+        idx_alimento = cardapioAlimentos.index(alimento)
+        idx_bebida = cardapioBebidas.index(bebida)
+
+        total_alimento = precoAlimentos[idx_alimento] * qtd_alimento
+        total_bebida = precoBebidas[idx_bebida] * qtd_bebida
+        total = total_alimento + total_bebida
+
+        resumo = f"{qtd_alimento}x {alimento} = {locale.currency(total_alimento, grouping=True)}\n"
+        resumo += f"{qtd_bebida}x {bebida} = {locale.currency(total_bebida, grouping=True)}\n"
+        resumo += f"Total: {locale.currency(total, grouping=True)}\n"
+
+        if forma_pagamento == "Dinheiro":
+            valor_pago = float(valor_pago_entry.get())
+            if valor_pago < total:
+                resumo += "Valor Insuficiente!"
+            else:
+                troco = valor_pago - total
+                resumo += f"Troco: {locale.currency(troco, grouping=(True))}"
+        else:
+            resumo += f"Pagamento via {forma_pagamento} confirmado."
+
+        resultado_label.configure(text=resumo)
+    except:
+        resultado_label.configure(text="Erro no preenchimento. Por favor, verifique os dados e tente novamente.")
