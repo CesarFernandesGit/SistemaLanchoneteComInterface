@@ -26,7 +26,7 @@ label_titulo.pack(pady=int(10))
 alimento_dropdown = ctk.CTkOptionMenu(app, values=cardapioAlimentos)
 alimento_dropdown.pack(pady=int(5))
 quantidade_alimento_entry = ctk.CTkEntry(app, placeholder_text="Quantidade de Alimentos")
-quantidade_alimento_entry.pack(pady=Int(5))
+quantidade_alimento_entry.pack(pady=int(5))
 
 bebida_dropdown = ctk.CTkOptionMenu(app, values=cardapioBebidas)
 bebida_dropdown.pack(pady=5)
